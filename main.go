@@ -11,14 +11,14 @@ import (
 
 func main() {
 	// Initialize Database
-	InitDB()
+	db := InitDB()
 	defer CloseDB()
 
 	// Initialize Router
 	r := mux.NewRouter()
 
 	// Register Routes
-	routes.RegisterRoutes(r)
+	routes.RegisterRoutes(r, db)
 
 	// Start Server
 	port := ":8080"
