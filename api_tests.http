@@ -3,8 +3,21 @@ POST http://localhost:8080/shorten
 Content-Type: application/json
 
 {
-  "long_url": "https://example.com"
+  "long_url": "https://google.com",
 }
 
 ### Test Redirect (GET)
-GET http://localhost:8080/liK2MQ
+GET http://localhost:8080/S7GGr2
+
+### redirect with expired URL
+GET http://localhost:8080/Ijr9p0
+
+### custom domain with expiry
+POST http://localhost:8080/shorten
+Content-Type: application/json
+
+{
+  "long_url": "https://google.com",
+  "custom_domain": "https://google.com",
+  "expiry_days": 2
+}
