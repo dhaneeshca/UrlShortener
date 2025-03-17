@@ -75,6 +75,7 @@ Develop a **custom URL shortener service** using **Go** that allows users to sho
 - `DELETE /api/urls/{short_url}` – Delete a short URL.
 - `GET /api/urls/{short_url}/stats` – Get analytics for a short URL.
 - `POST /api/apikey/generate` – Generate a new API key.
+- `GET /api/apikey/list` - List all keys
 - `POST /api/apikey/revoke` – Revoke an API key.
 
 ---
@@ -100,7 +101,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USER=youruser
 DB_PASSWORD=yourpassword
-DB_NAME=url_shortener
+DB_NAME=postgres
 REDIS_HOST=localhost
 REDIS_PORT=6379
 JWT_SECRET=your_secret_key
@@ -123,7 +124,8 @@ go run main.go
 ### ✅ Phase 2: Advanced Features
 - Add **custom short URLs**.
 - Implement **custom domain support**.
-- Add **URL expiration logic**.
+- Add **URL expiration logic[default - 1000 days / custom]**.
+
 
 ### ✅ Phase 3: API Key Authentication
 - Implement **API key management**.

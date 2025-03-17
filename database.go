@@ -25,7 +25,7 @@ func InitDB() *gorm.DB {
 	fmt.Println("✅ Connected to PostgreSQL using GORM")
 
 	// Run Migrations
-	err = DB.AutoMigrate(&models.URL{})
+	err = DB.AutoMigrate(&models.User{}, &models.APIKey{}, &models.URL{})
 	if err != nil {
 		log.Fatalf("❌ Failed to migrate: %v", err)
 	}
