@@ -13,4 +13,5 @@ func RegisterRoutes(r *mux.Router, db *gorm.DB) {
 	}).Methods("GET")
 
 	r.HandleFunc("/shorten", ShortenURL(db)).Methods("POST")
+	r.HandleFunc("/{short_url}", RedirectDB(db)).Methods("GET")
 }

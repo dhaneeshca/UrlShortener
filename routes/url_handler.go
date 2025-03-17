@@ -3,9 +3,11 @@ package routes
 import (
 	"UrlShortener/models"
 	"encoding/json"
+	"errors"
 	"math/rand"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
 
@@ -64,5 +66,28 @@ func ShortenURL(db *gorm.DB) http.HandlerFunc {
 		resp := ShortenResponse{ShortURL: "http://localhost:8080/" + shortCode}
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(resp)
+	}
+}
+
+func RedirectDB(db *gorm.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		arguments := mux.Vars(r)
+		short_code, exists := arguments["short_url"]
+		if !exists {
+			http.Error(w, "short URL is mandatory", http.StatusBadRequest)
+			return
+		}
+
+		var url models.URL
+		if err := db.Where("Short_url = ?", short_code).First(&url).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				http.Error(w, "Invalid URL", http.StatusNotFound)
+			} else {
+				http.Error(w, "Database error", http.StatusInternalServerError)
+			}
+			return
+		}
+
+		http.Redirect(w, r, url.LongURL, http.StatusFound)
 	}
 }

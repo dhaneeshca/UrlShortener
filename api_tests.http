@@ -1,0 +1,10 @@
+### Test Shorten URL (POST)
+POST http://localhost:8080/shorten
+Content-Type: application/json
+
+{
+  "long_url": "https://example.com"
+}
+
+### Test Redirect (GET)
+GET http://localhost:8080/liK2MQ
