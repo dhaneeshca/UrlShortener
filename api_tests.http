@@ -3,14 +3,14 @@ POST http://localhost:8080/shorten
 Content-Type: application/json
 
 {
-  "long_url": "https://google.com",
+  "long_url": "https://google.com"
 }
 
 ### Test Redirect (GET)
-GET http://localhost:8080/S7GGr2
+GET http://localhost:8080/auNHFT
 
 ### redirect with expired URL
-GET http://localhost:8080/Ijr9p0
+GET http://localhost:8080/NyJUrN
 
 ### custom domain with expiry
 POST http://localhost:8080/shorten
@@ -21,3 +21,52 @@ Content-Type: application/json
   "custom_domain": "https://google.com",
   "expiry_days": 2
 }
+
+### Register a new user
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+    "email_id": "testuser@example.com",
+    "password": "SecurePass123"
+}
+
+### Generate API Key
+POST http://localhost:8080/api/apikey/generate
+Content-Type: application/json
+
+{
+    "user_id": 1
+}
+
+### List API Keys for User
+GET http://localhost:8080/api/apikey/list?user_id=1
+Authorization: Bearer ua8g64h02GqoKYKQG9Zo3xWoapahsnX1
+
+### Revoke API Key
+POST http://localhost:8080/api/apikey/revoke
+Content-Type: application/json
+Authorization: Bearer 1yFPgFqb0AVIycE4X4WuIRhTctID16ni
+
+{
+    "user_id": 1,
+    "api_key": "alnkiScnhVuEe55sNGcLkl7pm5w94cTX"
+}
+
+### Shorten a URL
+POST http://localhost:8080/api/shorten
+Content-Type: application/json
+Authorization: Bearer AvtzvlsuNMcmRzM7lvv5dtMSuP9cdhyq
+
+{
+    "long_url": "https://example.com",
+    "short_url": "custom123"
+}
+
+### Retrieve URL Details
+GET http://localhost:8080/api/urls/custom123
+Authorization: Bearer AvtzvlsuNMcmRzM7lvv5dtMSuP9cdhyq
+
+### Delete Short URL (Soft Delete)
+DELETE http://localhost:8080/api/urls/custom123
+Authorization: Bearer AvtzvlsuNMcmRzM7lvv5dtMSuP9cdhyq
